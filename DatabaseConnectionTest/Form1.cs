@@ -5,26 +5,21 @@ using System.IO;
 using System.Windows.Forms;
 using DatabaseConnectionTest.Properties;
 
-namespace DatabaseConnectionTest
-{
+namespace DatabaseConnectionTest {
     public partial class Form1 : Form {
-        public string subjectsDbPath;
+        public string SubjectsDbPath;
         public readonly OleDbConnection SubjectsConnection = new OleDbConnection();
 
-        public Form1()
-        {
+        public Form1() {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            subjectsDbPath = Settings.Default.subjectsDbPath;
-            subjectsDbPath = "";
-            
+            SubjectsDbPath = Settings.Default.subjectsDbPath;
+            SubjectsDbPath = "";
 
-            
-
-            if (subjectsDbPath.Equals("")) {
-                subjectsDbPath = GetDatabasePath();
+            if (SubjectsDbPath.Equals("")) {
+                SubjectsDbPath = GetDatabasePath();
             }
             else {
                 /*
@@ -37,49 +32,50 @@ namespace DatabaseConnectionTest
               Unencrypt and re-encrypt the database.
             */
                 string strSubjectsCon = @"Provider=Microsoft.ACE.OLEDB.12.0;" +
-                                        @"Data Source=" + subjectsDbPath + "Subjects.accdb;" +
+                                        @"Data Source=" + SubjectsDbPath + "Subjects.accdb;" +
                                         @"Jet OLEDB:Database Password=0163575879";
 
                 SubjectsConnection.ConnectionString = strSubjectsCon;
             }
 
-            try
-            {
+            try {
                 SubjectsConnection.Open();
                 MessageBox.Show("Subjects Database connection is successful.");
                 MessageBox.Show(SubjectsConnection.ConnectionString);
             }
-            catch (OleDbException oleDbEx)
-            {
+            catch (OleDbException oleDbEx) {
                 MessageBox.Show("Access Error:" +
                                 "\n\nError Code = " + oleDbEx.ErrorCode +
                                 "\n\nError Message = " + oleDbEx.Message);
             }
-            catch (InvalidOperationException invOpEx)
-            {
-                DialogResult =
-                MessageBox.Show("", "تعذر الوصول الى قاعدة البيانات", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error,
-                    MessageBoxDefaultButton.Button1);
+            catch (InvalidOperationException invOpEx) {
+                DialogResult dialogResult;
+                dialogResult =
+                    MessageBox.Show("", "تعذر الوصول الى قاعدة البيانات", MessageBoxButtons.RetryCancel,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1);
 
-                switch (DialogResult) {
+                switch (dialogResult) {
                     case DialogResult.Retry:
-                        subjectsDbPath = GetDatabasePath();
+                        SubjectsDbPath = GetDatabasePath();
                         break;
                     case DialogResult.Cancel:
                         MessageBox.Show("Invalid Message = " +
                                         "\n\nError Message = " + invOpEx.Message);
                         break;
-                }       
+                }
             }
 
             if (SubjectsConnection.State != ConnectionState.Open) {
                 simpleButton1.Enabled = false;
                 simpleButton2.Enabled = false;
-                textEdit1.Enabled = false;}
+                textEdit1.Enabled = false;
+            }
         }
 
         private string GetDatabasePath() {
-            string subjectsDbPath = string.Empty;DialogResult dlgresult;
+            string subjectsDbPath = string.Empty;
+            DialogResult dlgresult;
             FolderBrowserDialog folderDlg = new FolderBrowserDialog();
             // Getting installation folder from user
             folderDlg.Description = "برجاء اختيار مجلد لحفظ قاعدة البيانات";
@@ -90,7 +86,7 @@ namespace DatabaseConnectionTest
             if (dlgresult == DialogResult.OK) {
                 // Assigning operators
                 subjectsDbPath = folderDlg.SelectedPath;
-                File.WriteAllBytes(subjectsDbPath + @"\Subjects.accdb", Properties.Resources.Subjects);
+                File.WriteAllBytes(subjectsDbPath + @"\Subjects.accdb", Resources.Subjects);
                 Settings.Default.subjectsDbPath = subjectsDbPath + @"\";
                 Settings.Default.Save();
                 MessageBox.Show(subjectsDbPath);

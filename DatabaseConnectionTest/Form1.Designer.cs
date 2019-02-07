@@ -31,7 +31,9 @@
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            this.radPageView1 = new Telerik.WinControls.UI.RadPageView();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).BeginInit();
             this.SuspendLayout();
             // 
             // textEdit1
@@ -57,11 +59,19 @@
             this.simpleButton2.TabIndex = 2;
             this.simpleButton2.Text = "simpleButton2";
             // 
+            // radPageView1
+            // 
+            this.radPageView1.Location = new System.Drawing.Point(119, 12);
+            this.radPageView1.Name = "radPageView1";
+            this.radPageView1.Size = new System.Drawing.Size(346, 253);
+            this.radPageView1.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(477, 277);
+            this.Controls.Add(this.radPageView1);
             this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.textEdit1);
@@ -69,6 +79,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -78,6 +89,7 @@
         private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private Telerik.WinControls.UI.RadPageView radPageView1;
     }
 }
 
