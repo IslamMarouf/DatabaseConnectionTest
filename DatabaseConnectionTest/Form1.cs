@@ -1,7 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Data;
 using System.Data.OleDb;
-using System.IO;
 using System.Windows.Forms;
 using DatabaseConnectionTest.Properties;
 
@@ -66,20 +66,19 @@ namespace DatabaseConnectionTest {
                 }
             }
 
-            if (SubjectsConnection.State != ConnectionState.Open) {
-                simpleButton1.Enabled = false;
-                simpleButton2.Enabled = false;
-                textEdit1.Enabled = false;
-            }
+            if (SubjectsConnection.State == ConnectionState.Open) return;
+            simpleButton1.Enabled = false;
+            simpleButton2.Enabled = false;
+            textEdit1.Enabled = false;
         }
 
         private string GetDatabasePath() {
             string subjectsDbPath = string.Empty;
             DialogResult dlgresult;
-            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog {
+                Description = "برجاء اختيار مجلد لحفظ قاعدة البيانات", RootFolder = Environment.SpecialFolder.MyComputer
+            };
             // Getting installation folder from user
-            folderDlg.Description = "برجاء اختيار مجلد لحفظ قاعدة البيانات";
-            folderDlg.RootFolder = Environment.SpecialFolder.MyComputer;
 
             dlgresult = folderDlg.ShowDialog();
 
